@@ -10,9 +10,9 @@ import geni.rspec.emulab.spectrum as spectrum
 
 
 tourDescription = """
-### OAI 5G RAN Slicing
+### OAI 5G Core Network Slicing
 
-This profile instantiates an experiment for testing OAI 5G RAN slicing. Currently, it deploys only the modified version of OAI Core Network.
+This profile instantiates an experiment for testing OAI 5G Core Network slicing. Currently, it deploys only the modified version of OAI Core Network.
 
 - Server-class compute node (d430) with a Docker-based OAI 5G Core Network
 - A d430 compute node to host the core network
@@ -26,33 +26,6 @@ Startup scripts will still be running when your experiment becomes ready.  Watch
 After all startup scripts have finished...
 
 On `cn5g-docker-host`, open a terminal session via SSH, or using the shell option for that node in the portal.
-
-Start the 5G core network services.
-
-```
-cd /var/tmp/oai-cn5g
-sudo docker compose up -d
-```
- 
-It will take several seconds for the services to start up. Since we started the services in detached mode, you can check the status of the services with:
-
-```
-sudo docker compose ps
-```
-
-In another session, start following the logs for the AMF. This way you can see when the UE attaches to the network.
-
-```
-cd /var/tmp/oai-cn5g
-sudo docker compose logs -f oai-amf
-```
-
-If you'd like to monitor traffic between the various network functions and the gNodeB, start tshark in yet another session:
-
-```
-sudo tshark -i oai-cn5g \
-  -f "not arp and not port 53 and not host archive.ubuntu.com and not host security.ubuntu.com"
-```
 
 """
 
@@ -84,7 +57,7 @@ pc.defineParameter(
     name="repo_branch", 
     description="Branch or commit hash", 
     typ=portal.ParameterType.STRING, 
-    defaultValue="main"
+    defaultValue="master"
     )
 
 pc.defineParameter(
